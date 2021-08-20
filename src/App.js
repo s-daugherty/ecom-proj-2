@@ -8,8 +8,6 @@ import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInAndUp from './pages/sign-in-and-up/sign-in-and-up.component';
 import {auth, createUserProfileDocument} from './firebase/firebase.utils';
-import { canConstructResponseFromBodyStream } from 'workbox-core/_private';
-import { render } from '@testing-library/react';
 
 class App extends React.Component {
   constructor() {
