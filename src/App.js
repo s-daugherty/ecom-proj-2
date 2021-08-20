@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route} from 'react-router-dom';
+import {Switch, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import './App.css';
@@ -44,15 +44,31 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
-          <Route path='/signin' component={SignInAndUp} />
+          <Route 
+            exact 
+            path='/signin' 
+            render={() => 
+              this.props.currentUser ? (
+                <Redirect to='/' />
+              ) : (
+                <SignInAndUp />
+              ) 
+            }
+          />
         </Switch>
       </div>
     );
   }
 }
 
+// if a user is signed in, shouldn't be able to see sign in page
+// the user that we're destructuring off is the user reducer
+const mapStateToProps = ({user}) => ({
+  currentUser: user.currentUser
+});
+
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
-})
+});
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
