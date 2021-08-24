@@ -1,12 +1,6 @@
 import {createSelector} from 'reselect';
 
-const CATEGORY_ID_MAP = {
-    hats: 1,
-    sneakers: 2,
-    jackets: 3,
-    womens: 4,
-    mens: 5
-};
+import memoize from 'lodash.memoize';
 
 const selectShop = state => state.shop;
 
@@ -15,8 +9,9 @@ export const selectCategories = createSelector(
     (shop) => shop.categories
 );
 
-export const selectCategory = categoryUrlParam => createSelector(
-    [selectCategories],
-    categories => categories.find(
-        category => category.id === CATEGORY_ID_MAP[categoryUrlParam])
+export const selectCategory = memoize((categoryUrlParam) => 
+    createSelector(
+        [selectCategories],
+        categories => categories[categoryUrlParam]
+    )
 );
