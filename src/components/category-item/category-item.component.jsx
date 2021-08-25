@@ -16,7 +16,7 @@ const CategoryItem = ({item, addItemToCart}) => {
                 backgroundImage: `url(${imageUrl})`
             }}
         />
-        <div className='cagetory-footer'>
+        <div className='category-footer'>
             <span className='name'>{name}</span>
             <span className='price'>{price}</span>
         </div>

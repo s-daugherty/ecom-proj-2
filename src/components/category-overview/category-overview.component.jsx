@@ -8,7 +8,6 @@ import './category-overview.styles.scss';
 
 const CategoryOverview = ({categories}) => (
     <div className='category-overview'>
-        {console.log(categories)}
         {categories.map(({id, ...otherCategoryProps}) => (
             <CategoryPreview key={id} {...otherCategoryProps} />
         ))}
