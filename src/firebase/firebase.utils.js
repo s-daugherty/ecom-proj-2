@@ -19,10 +19,12 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
     const snapShot = await userRef.get();
 
+    // want to create document if user does not already exist
     if (!snapShot.exists) {
         const { displayName, email } = userAuth;
         const createdAt = new Date();
 
+        // create new document w these properties
         try {
             await userRef.set({
                 displayName, 
