@@ -5,14 +5,14 @@ import {connect } from 'react-redux';
 import CategoryPageContainer from '../category/category.container';
 import CategoryOverviewContainer from '../../components/category-overview/category-overview.container';
 
-import { fetchCategoriesStartAsync } from '../../redux/shop/shop.actions';
+import { fetchCategoriesStart } from '../../redux/shop/shop.actions';
 
 // using match not good to hardcode /shop - /shop doesn't need to know about these (??)
 // the /:categoryId allows us to use categoryId as a parameter inside category page
 class ShopPage extends React.Component {
     componentDidMount() {
-        const {fetchCategoriesStartAsync} = this.props;
-        fetchCategoriesStartAsync();
+        const {fetchCategoriesStart} = this.props;
+        fetchCategoriesStart();
     }
 
     render() {
@@ -34,7 +34,7 @@ class ShopPage extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    fetchCategoriesStartAsync: () => dispatch(fetchCategoriesStartAsync())
+    fetchCategoriesStart: () => dispatch(fetchCategoriesStart())
 });
 
 export default connect(null, mapDispatchToProps)(ShopPage);
