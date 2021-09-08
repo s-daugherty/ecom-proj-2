@@ -19,3 +19,13 @@ export const selectCategoriesForPreview = createSelector(
     [selectCategories],
     categories => categories ? Object.keys(categories).map(key => categories[key]) : []
 );
+
+export const selectIsCategoryFetching = createSelector(
+    [selectShop],
+    shop => shop.isFetching
+);
+
+export const selectIsCategoryLoaded = createSelector(
+    [selectShop],
+    shop => !!shop.categories
+)

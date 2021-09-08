@@ -7,7 +7,6 @@ import CategoryItem from '../../components/category-item/category-item.component
 import './category.styles.scss';
 
 const CategoryPage = ({categories}) => {
-    console.log(categories);
     const {title, items} = categories;
     return (
         <div className='category-page'>
