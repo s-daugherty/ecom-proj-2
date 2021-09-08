@@ -30,7 +30,9 @@ class ShopPage extends React.Component {
         const {updateCategories} = this.props;
         const categoriesRef = firestore.collection('collections');
 
-        this.unsubscribeFromSnapshot = categoriesRef.onSnapshot(snapshot => {
+        // promise style, as opposed to live update stream style you see with observer
+        // caveat: only time we will get new data is if we remount shop
+        categoriesRef.get().then(snapshot => {
             const categoriesMap = convertCategoriesSnapshotToMap(snapshot);
             updateCategories(categoriesMap);
             this.setState({loading: false});
