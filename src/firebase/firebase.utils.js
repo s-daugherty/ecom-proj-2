@@ -38,7 +38,47 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     }
 
     return userRef;
-} 
+};
+
+export const addCollectionAndDocuments = async (
+    collectionKey, 
+    objectsToAdd
+) => {
+    // create collection using collection key
+    const collectionRef = firestore.collection(collectionKey);
+
+    // batch write so if anything fails to upload, the whole thing fails
+    const batch = firestore.batch();
+    objectsToAdd.forEach(obj => {
+        // give me new doc ref objects and make own key 
+        // if you pass something in, that becomes the id
+        const newDocRef = collectionRef.doc();
+        batch.set(newDocRef, obj);
+    });
+
+    // fire off batch call, which returns promise: 
+    //  resolves to null if succeeds 
+    return await batch.commit();
+};
+
+export const convertCategoriesSnapshotToMap = (categories) => {
+    const transformedCategories = categories.docs.map(doc => {
+        const {title, items} = doc.data();
+
+        return {
+            routeName: encodeURI(title.toLowerCase()),
+            id: doc.id,
+            title,
+            items
+        };
+    });
+    // sets properties like hats property = hats collection 
+    //  til we have an object where the titles of all collection objects are the keys 
+    return transformedCategories.reduce((accumulator, category) => {
+        accumulator[category.title.toLowerCase()] = category;
+        return accumulator;
+    }, {});
+};
 
 firebase.initializeApp(config);
 

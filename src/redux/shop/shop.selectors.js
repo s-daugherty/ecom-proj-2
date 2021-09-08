@@ -12,10 +12,10 @@ export const selectCategories = createSelector(
 export const selectCategory = memoize((categoryUrlParam) => 
     createSelector(
         [selectCategories],
-        categories => categories[categoryUrlParam]
+        categories => categories ? categories[categoryUrlParam] : null
 ));
 
 export const selectCategoriesForPreview = createSelector(
     [selectCategories],
-    categories => Object.keys(categories).map(key => categories[key])
+    categories => categories ? Object.keys(categories).map(key => categories[key]) : []
 );
