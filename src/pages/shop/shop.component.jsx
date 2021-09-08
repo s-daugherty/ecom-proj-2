@@ -2,10 +2,10 @@ import React from 'react';
 import {Route} from 'react-router-dom';
 import {connect } from 'react-redux';
 
+import { fetchCategoriesStart } from '../../redux/shop/shop.actions';
+
 import CategoryPageContainer from '../category/category.container';
 import CategoryOverviewContainer from '../../components/category-overview/category-overview.container';
-
-import { fetchCategoriesStart } from '../../redux/shop/shop.actions';
 
 // using match not good to hardcode /shop - /shop doesn't need to know about these (??)
 // the /:categoryId allows us to use categoryId as a parameter inside category page
