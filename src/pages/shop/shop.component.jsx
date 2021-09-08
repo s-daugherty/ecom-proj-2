@@ -30,7 +30,7 @@ class ShopPage extends React.Component {
         const {updateCategories} = this.props;
         const categoriesRef = firestore.collection('collections');
 
-        categoriesRef.get().then(snapshot => {
+        this.unsubscribeFromSnapshot = categoriesRef.onSnapshot(snapshot => {
             const categoriesMap = convertCategoriesSnapshotToMap(snapshot);
             updateCategories(categoriesMap);
             this.setState({loading: false});
