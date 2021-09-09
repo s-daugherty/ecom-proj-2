@@ -1,4 +1,4 @@
-import {takeLatest, call, put } from 'redux-saga/effects';
+import {takeLatest, call, all, put } from 'redux-saga/effects';
 
 import {
     firestore, 
@@ -26,4 +26,8 @@ export function* fetchCategoriesAsync() {
 export function* fetchCategoriesStart() {
     // pause whenever a specific action comes in
     yield takeLatest(ShopActionTypes.FETCH_CATEGORIES_START, fetchCategoriesAsync);
-}
+};
+
+export function* shopSagas() {
+    yield all([call(fetchCategoriesStart)])
+}; 
